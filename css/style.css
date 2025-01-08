@@ -1,0 +1,302 @@
+/* 
+  style.css - Updated for More Distinct Hero Sections
+  with wave shapes, layering, and improved aesthetics.
+*/
+
+/* 1) Reset & Global */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  color: #fff; /* White or near-white text */
+  background: linear-gradient(to bottom right, #2e2e2e, #4e4e4e);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+/* 2) Sticky, Minimal Header */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+  padding: 0.5em 1em;
+  background: rgba(0, 0, 0, 0.7); /* Dark transparent for a more distinct top bar */
+  backdrop-filter: blur(4px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.logo {
+  font-size: 1.4rem;
+  font-weight: bold;
+  white-space: nowrap;
+  color: #fff;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5em;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0;
+}
+
+nav a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+  padding: 0.25em 0.5em;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+nav a:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+/* Mobile-friendly: wrap nav items if screen is too narrow */
+@media (max-width: 768px) {
+  nav ul {
+    flex-wrap: wrap;
+  }
+}
+
+/* 3) New Hero / Top Section Style 
+   - Distinct from rest of page
+   - Use an angled/wave background overlay
+*/
+
+/* 
+   We'll give the hero a separate container with a big background image,
+   layered with a wave shape or angled overlay to break uniformity.
+*/
+.hero {
+  position: relative; 
+  overflow: hidden; 
+  text-align: center;
+  color: #fff;
+  max-width: 100%;
+  margin-bottom: 3em; /* Additional spacing to separate from rest */
+}
+
+/* The hero background can be a large image filling the container. */
+.hero .hero-background {
+  width: 100%;
+  height: 60vh; /* Approx hero height; adjust as needed */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* Slightly darken overlay for better text contrast */
+  background-color: rgba(0, 0, 0, 0.3);
+  background-blend-mode: darken;
+  position: relative;
+  z-index: 1;
+}
+
+/*
+   We'll use a wave shape or angled shape overlay on top of the hero image.
+   There are many ways: clip-path, SVG, or image. 
+   Here's an example using a clip-path wave at the bottom.
+*/
+.hero::after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100%;
+  height: 100px;
+  background: linear-gradient(to right, #4e4e4e, #2e2e2e);
+  z-index: 2;
+  /* wave or angled shape - example clip-path wave shape */
+  clip-path: polygon(0 60%, 50% 100%, 100% 60%, 100% 100%, 0 100%);
+  /* You can adjust these coordinates for different wave/shape patterns */
+}
+
+/* The hero content - title, subtitle, CTA - sits inside */
+.hero-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3; /* Above the background and wave shape */
+  width: 90%;
+  max-width: 1000px;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+}
+
+.hero-content h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5em;
+}
+
+.hero-content p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5em;
+}
+
+/* CTA Buttons in hero area can be slightly bigger. */
+.hero-content .cta-buttons a {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 0.75em 1.25em;
+  margin: 0 0.25em;
+  border-radius: 4px;
+  font-weight: 600;
+  transition: background 0.3s;
+}
+
+.hero-content .cta-buttons a:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* 4) Section Style - Distinct from Hero 
+   We'll use partially translucent “cards” or containers for text
+*/
+.section {
+  max-width: 1200px;
+  margin: 2em auto;
+  padding: 1.5em;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(6px);
+  border-radius: 8px;
+}
+
+/* Make headings a bit more dynamic in color or style */
+.section h2 {
+  font-size: 2rem;
+  margin-bottom: 0.75em;
+  color: #ffd700; /* Example accent color (gold) */
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+}
+
+/* 5) CTA Buttons in sections */
+.cta-buttons {
+  margin-top: 1.5em;
+}
+
+.cta-buttons a {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  padding: 0.75em 1.25em;
+  margin: 0.25em;
+  border-radius: 4px;
+  font-weight: 600;
+  transition: background 0.3s ease;
+  text-decoration: none;
+}
+
+.cta-buttons a:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* 6) Image Grid, if needed */
+.images-showcase-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+  justify-content: center;
+}
+
+.images-showcase-grid img {
+  flex: 1 1 280px;
+  max-width: 300px;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  object-fit: cover;
+}
+
+/* 7) Footer */
+.footer {
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(3px);
+  border-top: 1px solid rgba(255,255,255,0.2);
+  text-align: center;
+  padding: 1.5em 1em;
+}
+
+.footer p {
+  margin: 0.5em 0;
+  color: #ccc;
+  font-size: 0.95rem;
+}
+
+/* 8) Form Container (Contact, Quote) with distinct style */
+.form-container {
+  max-width: 600px;
+  margin: 2em auto;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 8px;
+  padding: 2em;
+  color: #fff;
+}
+
+/* Adjust headings inside form container */
+.form-container h2 {
+  margin-bottom: 1em;
+  color: #ffd700; /* same accent color as H2 in sections */
+  text-align: center;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+}
+
+.form-group {
+  margin-bottom: 1.2em;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5em;
+  font-weight: 600;
+  color: #fff;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Button in forms */
+.submit-btn {
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+  padding: 0.75em 1.25em;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.submit-btn:hover {
+  background: rgba(255,255,255,0.3);
+}
+
+/* 9) Media Queries for Hero height, if needed */
+@media (max-width: 768px) {
+  .hero .hero-background {
+    height: 40vh; /* a bit smaller on mobile */
+  }
+
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+}
