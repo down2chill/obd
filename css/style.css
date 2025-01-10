@@ -1,6 +1,5 @@
-/* 
-  style.css - Updated for More Distinct Hero Sections
-  with wave shapes, layering, improved aesthetics, and a responsive gallery lightbox.
+/*
+  style.css - Updated for Smooth Crossfade & Right-Click Disabling
 */
 
 /* 1) Reset & Global */
@@ -16,6 +15,9 @@ body {
   background: linear-gradient(to bottom right, #2e2e2e, #4e4e4e);
   min-height: 100vh;
   line-height: 1.6;
+  /* Disable text selection if desired (optional):
+     user-select: none;
+  */
 }
 
 /* 2) Sticky, Minimal Header */
@@ -24,7 +26,7 @@ header {
   top: 0;
   z-index: 9999;
   padding: 0.5em 1em;
-  background: rgba(0, 0, 0, 0.7); /* Dark transparent for a more distinct top bar */
+  background: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(4px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
@@ -66,39 +68,53 @@ nav a:hover {
   border-radius: 4px;
 }
 
-/* Mobile-friendly: wrap nav items if screen is too narrow */
 @media (max-width: 768px) {
   nav ul {
     flex-wrap: wrap;
   }
 }
 
-/* 3) New Hero / Top Section Style 
-   - Distinct from rest of page
-   - Use an angled/wave background overlay
-*/
-
+/* 3) Hero Section with wave shape */
 .hero {
   position: relative; 
   overflow: hidden; 
   text-align: center;
   color: #fff;
   max-width: 100%;
-  margin-bottom: 3em; /* Additional spacing to separate from rest */
+  margin-bottom: 3em; 
 }
 
-/* The hero background can be a large image filling the container. */
 .hero .hero-background {
   width: 100%;
-  height: 60vh; /* Approx hero height; adjust as needed */
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  /* Slightly darken overlay for better text contrast */
-  background-color: rgba(0, 0, 0, 0.3);
-  background-blend-mode: darken;
+  height: 60vh;
   position: relative;
   z-index: 1;
+  /* We handle images inside (see below) */
+}
+
+/* Hero images crossfade */
+.hero-background img {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Prevent user from dragging the image (optional):
+     pointer-events: none;
+  */
+}
+
+.hero-background img.small-hero {
+  z-index: 1;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.hero-background img.large-hero {
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  /* Start hidden, fade in on load */
 }
 
 /* Wave shape overlay using clip-path */
@@ -111,17 +127,15 @@ nav a:hover {
   height: 100px;
   background: linear-gradient(to right, #4e4e4e, #2e2e2e);
   z-index: 2;
-  /* Wave shape */
   clip-path: polygon(0 60%, 50% 100%, 100% 60%, 100% 100%, 0 100%);
 }
 
-/* The hero content - title, subtitle, CTA - sits inside */
 .hero-content {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 3; /* Above the background and wave shape */
+  z-index: 3;
   width: 90%;
   max-width: 1000px;
   text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
@@ -137,7 +151,6 @@ nav a:hover {
   margin-bottom: 1.5em;
 }
 
-/* CTA Buttons in hero area can be slightly bigger. */
 .hero-content .cta-buttons a {
   display: inline-block;
   background: rgba(255, 255, 255, 0.2);
@@ -153,9 +166,17 @@ nav a:hover {
   background: rgba(255, 255, 255, 0.3);
 }
 
-/* 4) Section Style - Distinct from Hero 
-   We'll use partially translucent “cards” or containers for text
-*/
+/* For smaller screens, reduce hero height */
+@media (max-width: 768px) {
+  .hero .hero-background {
+    height: 40vh;
+  }
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+}
+
+/* 4) Section Style */
 .section {
   max-width: 1200px;
   margin: 2em auto;
@@ -165,15 +186,14 @@ nav a:hover {
   border-radius: 8px;
 }
 
-/* Make headings a bit more dynamic in color or style */
 .section h2 {
   font-size: 2rem;
   margin-bottom: 0.75em;
-  color: #ffd700; /* Example accent color (gold) */
+  color: #ffd700;
   text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
 }
 
-/* 5) CTA Buttons in sections */
+/* CTA Buttons in sections */
 .cta-buttons {
   margin-top: 1.5em;
 }
@@ -194,7 +214,7 @@ nav a:hover {
   background: rgba(255, 255, 255, 0.3);
 }
 
-/* 6) Image Grid with Gallery Enhancements */
+/* 5) Image Grid + Hover Zoom */
 .images-showcase-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -238,7 +258,7 @@ nav a:hover {
   opacity: 1;
 }
 
-/* 7) Footer */
+/* 6) Footer */
 .footer {
   background: rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(3px);
@@ -253,7 +273,7 @@ nav a:hover {
   font-size: 0.95rem;
 }
 
-/* 8) Form Container (Contact, Quote) with distinct style */
+/* 7) Form Container */
 .form-container {
   max-width: 600px;
   margin: 2em auto;
@@ -265,10 +285,9 @@ nav a:hover {
   color: #fff;
 }
 
-/* Adjust headings inside form container */
 .form-container h2 {
   margin-bottom: 1em;
-  color: #ffd700; /* same accent color as H2 in sections */
+  color: #ffd700;
   text-align: center;
   text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
 }
@@ -292,7 +311,7 @@ nav a:hover {
   border-radius: 4px;
 }
 
-/* Button in forms */
+/* Form button */
 .submit-btn {
   background: rgba(255,255,255,0.15);
   color: #fff;
@@ -308,30 +327,18 @@ nav a:hover {
   background: rgba(255,255,255,0.3);
 }
 
-/* 9) Media Queries for Hero height, if needed */
-@media (max-width: 768px) {
-  .hero .hero-background {
-    height: 40vh; /* a bit smaller on mobile */
-  }
-
-  .hero-content h1 {
-    font-size: 2rem;
-  }
-}
-
-/* 10) Gallery Modal Styles */
-
+/* 8) Gallery Modal */
 .gallery-modal {
-  display: none; /* Hidden by default */
+  display: none; 
   position: fixed;
-  z-index: 10000; /* Above all other elements */
+  z-index: 10000; 
   padding-top: 60px;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: hidden; /* Disable scroll */
-  background-color: rgba(0, 0, 0, 0.9); /* Black background with opacity */
+  overflow: hidden; 
+  background-color: rgba(0, 0, 0, 0.9);
 }
 
 .gallery-modal img {
@@ -364,7 +371,7 @@ nav a:hover {
 
 .close-btn:hover,
 .close-btn:focus {
-  color: #ffd700; /* Accent color on hover */
+  color: #ffd700;
   text-decoration: none;
 }
 
@@ -393,7 +400,7 @@ nav a:hover {
 
 .prev:hover,
 .next:hover {
-  color: #ffd700; /* Accent color on hover */
+  color: #ffd700;
 }
 
 /* Responsive Adjustments for Modal */
@@ -402,33 +409,26 @@ nav a:hover {
     max-width: 90%;
     max-height: 70%;
   }
-
   .close-btn {
     font-size: 30px;
     top: 15px;
     right: 25px;
   }
-
   .prev,
   .next {
     font-size: 24px;
     padding: 12px;
   }
-
   .gallery-modal .caption {
     font-size: 1rem;
   }
 }
 
-/* -------------------- */
-/* 11) Services Page Specific Styles */
-/* -------------------- */
-
+/* 9) Services Page Specific Styles */
 .services-page .section-content {
   display: flex;
   align-items: center;
   gap: 1.5em;
-  /* Ensure content stacks on smaller screens */
 }
 
 .services-page .section-text {
@@ -441,28 +441,24 @@ nav a:hover {
 
 .services-page .section-image img {
   width: 100%;
-  max-width: 500px; /* Adjust as needed */
+  max-width: 500px;
   height: auto;
   border-radius: 8px;
   object-fit: cover;
   box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
 
-/* Responsive Adjustments for Services Page */
 @media (max-width: 768px) {
   .services-page .section-content {
     flex-direction: column;
   }
-
   .services-page .section-image img {
     max-width: 100%;
     height: auto;
   }
-
   .services-page .hero .hero-background {
-    height: 40vh; /* Ensure hero image is smaller on mobile */
+    height: 40vh;
   }
-
   .services-page .hero-content h1 {
     font-size: 2rem;
   }
