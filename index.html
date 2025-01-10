@@ -73,12 +73,24 @@
       <h2>Spotlight on Our Work</h2>
       <p>Peek at how we transform spaces with expertise and attention to detail:</p>
       <div class="images-showcase-grid">
-        <img src="images/horizontal (7).jpg" alt="Polished office floors after cleaning">
-        <img src="images/horizontal (17).jpg" alt="Deep-cleaned industrial space">
-        <img src="images/horizontal (3).jpg" alt="Bright, sanitized hallway">
-        <img src="images/horizontal (6).jpg" alt="Team disinfecting communal areas">
-        <img src="images/horizontal (11).jpg" alt="Sparkling lobby post-service">
-        <img src="images/horizontal (19).jpg" alt="Equipment cleaned and neatly arranged">
+        <a href="images/horizontal (7).jpg" class="gallery-item" data-index="0">
+          <img src="images/horizontal (7).jpg" alt="Professional Cleaning Solutions - Reception Hall">
+        </a>
+        <a href="images/horizontal (17).jpg" class="gallery-item" data-index="1">
+          <img src="images/horizontal (17).jpg" alt="Industrial Carpet Cleaning - Office">
+        </a>
+        <a href="images/horizontal (3).jpg" class="gallery-item" data-index="2">
+          <img src="images/horizontal (3).jpg" alt="Disaster Recorvery - Cleaning & Drying after Flood">
+        </a>
+        <a href="images/horizontal (6).jpg" class="gallery-item" data-index="3">
+          <img src="images/horizontal (6).jpg" alt="Commercial Floor Waxing & Polishing">
+        </a>
+        <a href="images/horizontal (11).jpg" class="gallery-item" data-index="4">
+          <img src="images/horizontal (11).jpg" alt="Cleaning after Construction, Residential & Business">
+        </a>
+        <a href="images/horizontal (2).jpg" class="gallery-item" data-index="5">
+          <img src="images/horizontal (2).jpg" alt="Advanced Cleaning Solutions, Commercial & Factory">
+        </a>
       </div>
     </section>
 
@@ -118,13 +130,103 @@
     </section>
   </main>
 
+  <!-- FOOTER -->
   <footer class="footer">
     <p>&copy; <span id="year"></span> OBD Cleaning. All rights reserved.</p>
   </footer>
 
+  <!-- Gallery Modal -->
+  <div id="gallery-modal" class="gallery-modal" aria-hidden="true">
+    <span class="close-btn" aria-label="Close">&times;</span>
+    <img class="modal-content" id="modal-image" alt="">
+    <div class="caption" id="modal-caption"></div>
+    <a class="prev" aria-label="Previous Image">&#10094;</a>
+    <a class="next" aria-label="Next Image">&#10095;</a>
+  </div>
+
+  <!-- JavaScript -->
   <script>
     // Current year in footer
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Gallery Modal Functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const galleryItems = document.querySelectorAll('.gallery-item');
+      const modal = document.getElementById('gallery-modal');
+      const modalImg = document.getElementById('modal-image');
+      const captionText = document.getElementById('modal-caption');
+      const closeBtn = document.querySelector('.close-btn');
+      const prevBtn = document.querySelector('.prev');
+      const nextBtn = document.querySelector('.next');
+      let currentIndex = 0;
+
+      const images = Array.from(galleryItems).map(item => ({
+        src: item.getAttribute('href'),
+        alt: item.querySelector('img').getAttribute('alt')
+      }));
+
+      function openModal(index) {
+        currentIndex = index;
+        modal.style.display = 'block';
+        modal.setAttribute('aria-hidden', 'false');
+        updateModal();
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+      }
+
+      function closeModal() {
+        modal.style.display = 'none';
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = 'auto';
+      }
+
+      function updateModal() {
+        modalImg.src = images[currentIndex].src;
+        modalImg.alt = images[currentIndex].alt;
+        captionText.textContent = images[currentIndex].alt;
+      }
+
+      function showNext() {
+        currentIndex = (currentIndex + 1) % images.length;
+        updateModal();
+      }
+
+      function showPrev() {
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        updateModal();
+      }
+
+      galleryItems.forEach((item, index) => {
+        item.addEventListener('click', function(e) {
+          e.preventDefault();
+          openModal(index);
+        });
+      });
+
+      closeBtn.addEventListener('click', closeModal);
+
+      nextBtn.addEventListener('click', showNext);
+      prevBtn.addEventListener('click', showPrev);
+
+      // Close modal when clicking outside the image
+      modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+          closeModal();
+        }
+      });
+
+      // Keyboard navigation
+      document.addEventListener('keydown', function(e) {
+        if (modal.style.display === 'block') {
+          if (e.key === 'ArrowRight') {
+            showNext();
+          } else if (e.key === 'ArrowLeft') {
+            showPrev();
+          } else if (e.key === 'Escape') {
+            closeModal();
+          }
+        }
+      });
+    });
   </script>
 </body>
 </html>
