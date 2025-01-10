@@ -165,30 +165,6 @@ nav a:hover {
   border-radius: 8px;
 }
 
-/* New Styles for Section Content with Image */
-.section-content {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 1.5em;
-}
-
-.section-text {
-  flex: 1;
-}
-
-.section-image {
-  flex: 1;
-}
-
-.section-image img {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-  object-fit: cover;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-}
-
 /* Make headings a bit more dynamic in color or style */
 .section h2 {
   font-size: 2rem;
@@ -341,15 +317,6 @@ nav a:hover {
   .hero-content h1 {
     font-size: 2rem;
   }
-  
-  /* Adjust section-content for mobile */
-  .section-content {
-    flex-direction: column;
-  }
-  
-  .section-image {
-    margin-top: 1em;
-  }
 }
 
 /* 10) Gallery Modal Styles */
@@ -450,5 +417,53 @@ nav a:hover {
 
   .gallery-modal .caption {
     font-size: 1rem;
+  }
+}
+
+/* -------------------- */
+/* 11) Services Page Specific Styles */
+/* -------------------- */
+
+.services-page .section-content {
+  display: flex;
+  align-items: center;
+  gap: 1.5em;
+  /* Ensure content stacks on smaller screens */
+}
+
+.services-page .section-text {
+  flex: 1;
+}
+
+.services-page .section-image {
+  flex: 1;
+}
+
+.services-page .section-image img {
+  width: 100%;
+  max-width: 500px; /* Adjust as needed */
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+/* Responsive Adjustments for Services Page */
+@media (max-width: 768px) {
+  .services-page .section-content {
+    flex-direction: column;
+  }
+
+  .services-page .section-image img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .services-page .hero .hero-background {
+    height: 40vh; /* Ensure hero image is smaller on mobile */
+  }
+
+  .services-page .hero-content h1 {
+    font-size: 2rem;
   }
 }
